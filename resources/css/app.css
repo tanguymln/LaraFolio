@@ -2,7 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@source "../../storage/framework/views/*.php";
+
+
 @plugin "daisyui" {
     themes: light --default, dark --prefersdark;
 }
 
+
+.datatable-top {
+    @apply flex items-center justify-between mb-4;
+}
+.datatable-top .datatable-dropdown{
+    @apply flex items-center gap-2 text-gray-500;
+}
+.datatable-top .datatable-dropdown select{
+    @apply text-sm text-gray-500 bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200;
+}
+.datatable-top .datatable-search{
+    @apply flex items-center gap-2 text-gray-500;
+}
+.datatable-top .datatable-search input{
+    @apply text-sm text-gray-500 bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200;
+}
+.datatable-bottom {
+    @apply flex items-center justify-between mt-4;
+}
+.datatable-bottom .datatable-info{
+    @apply text-sm text-gray-500;
+}
+.datatable-bottom .datatable-pagination{
+    @apply flex items-center gap-2 text-gray-500;
+}
+.datatable-bottom .datatable-pagination-list{
+    @apply text-sm flex items-center gap-2 text-gray-500;
+}
+.datatable-bottom .datatable-pagination button{
+    @apply inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-sm transition ease-in-out duration-150 hover:bg-gray-200;
+}
+
+.datatable-bottom .datatable-pagination .datatable-active button{
+    @apply text-sm inline-flex items-center px-4 py-2 bg-gray-100 border border-gray-300 uppercase tracking-widest hover:bg-gray-200 dark:hover:bg-white transition ease-in-out duration-150;
+}

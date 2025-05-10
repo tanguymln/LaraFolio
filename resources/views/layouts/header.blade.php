@@ -1,6 +1,6 @@
 <a href="/">
     @if ($siteLogo)
-        <img src="{{ asset(config("app.logo")) }}" alt="{{ config("app.name") }}" class="w-20 h-20">
+        <img src="{{ asset(config('app.logo')) }}" alt="{{ config('app.name') }}" class="w-20 h-20">
     @else
         <x-application-logo class="w-16 h-16 fill-current text-gray-800" />
     @endif
@@ -9,16 +9,16 @@
 <nav class="flex-1 text-center">
     <ul class="flex justify-center items-center gap-2 py-4">
         <li class="py-2 px-4 rounded-lg hover:bg-gray-500 hover:bg-opacity-5 transition-colors">
-            <a href="{{ route("about") }}">À Propos</a>
+            <a href="{{ route('about') }}">À Propos</a>
         </li>
         <li class="py-2 px-4 rounded-lg hover:bg-gray-500 hover:bg-opacity-5 transition-colors">
-            <a href="{{ route("services") }}">Services</a>
+            <a href="{{ route('services') }}">Services</a>
         </li>
         <li class="py-2 px-4 rounded-lg hover:bg-gray-500 hover:bg-opacity-5 transition-colors">
-            <a href="{{ route("quotes") }}">Devis</a>
+            <a href="{{ route('quotes') }}">Devis</a>
         </li>
         <li class="py-2 px-4 rounded-lg hover:bg-gray-500 hover:bg-opacity-5 transition-colors">
-            <a href="{{ route("contact") }}">Contact</a>
+            <a href="{{ route('contact') }}">Contact</a>
         </li>
     </ul>
 </nav>
@@ -55,13 +55,10 @@
     </button> --}}
 
     @auth
-        <a href="{{ route("dashboard") }}"
-            class="btn btn-white m-1 text-black dark:text-white bg-white dark:bg-gray-800">Dashboard</a>
+        <a href="{{ route('dashboard.index') }}" class="btn btn-white m-1 text-black dark:text-white bg-white dark:bg-gray-800">Dashboard</a>
     @endauth
     @guest
-        <a href="{{ route("login") }}"
-            class="btn btn-white m-1 text-black dark:text-white bg-white dark:bg-gray-800">Connexion</a>
-        <a href="{{ route("register") }}"
-            class="btn btn-white border-none m-1 text-white bg-blue-500 hover:bg-blue-600">Inscription</a>
+        <a href="{{ route('login') }}" class="btn btn-white m-1 text-black dark:text-white bg-white dark:bg-gray-800">Connexion</a>
+        <a href="{{ route('register') }}" class="btn btn-white border-none m-1 text-white bg-blue-500 hover:bg-blue-600">Inscription</a>
     @endguest
 </div>

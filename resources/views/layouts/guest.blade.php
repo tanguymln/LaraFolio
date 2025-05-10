@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace("_", "-", app()->getLocale()) }}">
+<html lang="{{ str_replace("_", "-", app()->getLocale()) }}" data-theme="light">
 
 <head>
     <meta charset="utf-8">
@@ -17,19 +17,19 @@
     @vite(["resources/css/app.css", "resources/js/app.js"])
 </head>
 
-<body class="font-sans text-gray-900 antialiased ">
+<body class="font-sans text-gray-900 antialiased overflow-x-hidden">
     <div class="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900">
 
         <header class="container mx-auto flex justify-between items-center">
             @include("layouts.header")
         </header>
 
-        <main class="w-full container mx-auto grow">
+        <main class="w-full grow">
             @yield("content")
         </main>
 
         <footer>
-            @yield("footer")
+            @include("layouts.footer")
         </footer>
     </div>
     </div>
