@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AdminProjectsController;
 use App\Http\Controllers\AdminServicesController;
+use App\Http\Controllers\AdminTagsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\QuoteController;
@@ -58,6 +59,10 @@ Route::middleware(['auth', 'verified'])
         Route::get('/projects/{id}/edit', action: [AdminProjectsController::class, 'edit'])->name('projects.edit');
         Route::put('/projects/{id}', [AdminProjectsController::class, 'update'])->name('projects.update');
         Route::delete('/projects/{id}', [AdminProjectsController::class, 'destroy'])->name('projects.destroy');
+
+        // Tags routes
+        Route::get('/tags/create', [AdminTagsController::class, 'create'])->name('tags.create');
+        Route::post('/tags', [AdminTagsController::class, 'store'])->name('tags.store');
     });
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');

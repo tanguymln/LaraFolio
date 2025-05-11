@@ -10,73 +10,73 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create("projects", function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string("title");
-            $table->string("image");
-            $table->text("description");
+            $table->string('title');
+            $table->string('image')->nullable();
+            $table->text('description');
             $table->timestamps();
         });
 
-        Schema::create("tags", function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->string("name")->unique();
+            $table->string('name')->unique();
         });
 
-        Schema::create("project_tag", function (Blueprint $table) {
-            $table->foreignId("project_id")->constrained()->onDelete("cascade");
-            $table->foreignId("tag_id")->constrained()->onDelete("cascade");
+        Schema::create('project_tag', function (Blueprint $table) {
+            $table->foreignId('project_id')->constrained()->onDelete('cascade');
+            $table->foreignId('tag_id')->constrained()->onDelete('cascade');
         });
 
-        Schema::create("services", function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->text("description")->nullable();
-            $table->decimal("price", 10, 2);
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->decimal('price', 10, 2);
             $table->timestamps();
         });
 
-        Schema::create("quotes", function (Blueprint $table) {
+        Schema::create('quotes', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->string("email");
-            $table->text("message")->nullable();
+            $table->string('name');
+            $table->string('email');
+            $table->text('message')->nullable();
             $table->timestamps();
         });
 
-        Schema::create("quote_service", function (Blueprint $table) {
-            $table->foreignId("quote_id")->constrained()->onDelete("cascade");
-            $table->foreignId("service_id")->constrained()->onDelete("cascade");
+        Schema::create('quote_service', function (Blueprint $table) {
+            $table->foreignId('quote_id')->constrained()->onDelete('cascade');
+            $table->foreignId('service_id')->constrained()->onDelete('cascade');
         });
 
-        Schema::create("skills", function (Blueprint $table) {
+        Schema::create('skills', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->string("level")->nullable(); // ex: beginner, advanced, expert
+            $table->string('name');
+            $table->string('level')->nullable(); // ex: beginner, advanced, expert
             $table->timestamps();
         });
 
-        Schema::create("contacts", function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->string("email");
-            $table->text("message");
+            $table->string('name');
+            $table->string('email');
+            $table->text('message');
             $table->timestamps();
         });
 
-        Schema::create("site_settings", function (Blueprint $table) {
+        Schema::create('site_settings', function (Blueprint $table) {
             $table->id();
-            $table->string("key")->unique();
-            $table->text("value")->nullable();
+            $table->string('key')->unique();
+            $table->text('value')->nullable();
             $table->timestamps();
         });
 
-        Schema::create("visits", function (Blueprint $table) {
+        Schema::create('visits', function (Blueprint $table) {
             $table->id();
-            $table->string("ip");
-            $table->string("user_agent");
-            $table->string("route");
-            $table->timestamp("visited_at")->useCurrent();
+            $table->string('ip');
+            $table->string('user_agent');
+            $table->string('route');
+            $table->timestamp('visited_at')->useCurrent();
         });
     }
 
@@ -85,15 +85,15 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists("projects");
-        Schema::dropIfExists("tags");
-        Schema::dropIfExists("project_tag");
-        Schema::dropIfExists("services");
-        Schema::dropIfExists("quotes");
-        Schema::dropIfExists("quote_service");
-        Schema::dropIfExists("skills");
-        Schema::dropIfExists("contacts");
-        Schema::dropIfExists("site_settings");
-        Schema::dropIfExists("visits");
+        Schema::dropIfExists('projects');
+        Schema::dropIfExists('project_tag');
+        Schema::dropIfExists('tags');
+        Schema::dropIfExists('services');
+        Schema::dropIfExists('quote_service');
+        Schema::dropIfExists('quotes');
+        Schema::dropIfExists('skills');
+        Schema::dropIfExists('contacts');
+        Schema::dropIfExists('site_settings');
+        Schema::dropIfExists('visits');
     }
 };

@@ -19,15 +19,28 @@
                         ],
                     ],
                     'tableRows' => $projects,
-                    'tableRowFields' => ['image', 'name', 'description', 'tags'],
+                    'tableRowFields' => [
+                        [
+                            'image' => function ($row) {
+                                return '<img src="' . asset($row->image) . '" alt="Image" class="w-16 h-16 object-cover">';
+                            },
+                        ],
+                        'title',
+                        'description',
+                        [
+                            'tags' => function ($row) {
+                                return $row->tags->pluck('name')->join(', ');
+                            },
+                        ],
+                    ],
                     'tableActions' => [
                         [
-                            'route' => 'dashboard.services.edit',
+                            'route' => 'dashboard.projects.edit',
                             'icon' => 'edit',
                             'label' => __('Modifier'),
                         ],
                         [
-                            'route' => 'dashboard.services.destroy',
+                            'route' => 'dashboard.projects.destroy',
                             'icon' => 'trash',
                             'label' => __('Supprimer'),
                             'method' => 'delete',

@@ -47,3 +47,7 @@
 .datatable-bottom .datatable-pagination .datatable-active button{
     @apply text-sm inline-flex items-center px-4 py-2 bg-gray-100 border border-gray-300 uppercase tracking-widest hover:bg-gray-200 dark:hover:bg-white transition ease-in-out duration-150;
 }
+
+.filepond--credits {
+    @apply hidden;
+}

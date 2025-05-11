@@ -26,8 +26,13 @@
             <tr class="w-full">
                 @foreach ($tableRowFields as $field)
                     <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white w-1/4">
-                        {{ data_get($row, $field) }}
-                    </td>
+                        @if (is_array($field) && is_callable($field[key($field)]))
+                            <!-- Si c'est un tableau et qu'il y a un callback, on l'exécute pour le premier champ -->
+                            {!! $field[key($field)]($row) !!}
+                        @else
+                            <!-- Sinon, on affiche simplement la valeur du champ -->
+                            {{ data_get($row, $field) }}
+                        @endif
                 @endforeach
 
                 @if (!empty($tableActions))
