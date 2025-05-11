@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Quote;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class QuoteController extends Controller
@@ -12,7 +14,8 @@ class QuoteController extends Controller
     public function index()
     {
         //
-        return view("quote");
+        $services = Service::all();
+        return view('quote', compact('services'));
     }
 
     /**
@@ -28,7 +31,30 @@ class QuoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'message' => 'required|string',
+            'services' => 'required|json',
+            'total_price' => 'required|numeric|min:0',
+        ]);
+
+        $serviceIds = json_decode($request->input('services'), true);
+        if (!is_array($serviceIds)) {
+            return back()
+                ->withInput()
+                ->withErrors(['services' => 'La sélection des services est invalide.']);
+        }
+
+        $quote = Quote::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'message' => $request->message,
+        ]);
+
+        $quote->services()->sync($serviceIds);
+
+        return redirect()->route('home')->with('success', 'Votre demande de devis a bien été envoyée !');
     }
 
     /**

@@ -53,6 +53,8 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('level')->nullable(); // ex: beginner, advanced, expert
+            $table->text('description')->nullable();
+            $table->string('link')->nullable();
             $table->timestamps();
         });
 

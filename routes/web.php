@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Admin\AdminQuotesController;
 use App\Http\Controllers\AdminProjectsController;
 use App\Http\Controllers\AdminServicesController;
+use App\Http\Controllers\AdminSkillsController;
 use App\Http\Controllers\AdminTagsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ContactController;
@@ -19,6 +21,7 @@ Route::get('/', function () {
 Route::get(uri: '/about', action: [AboutController::class, 'index'])->name(name: 'about');
 Route::get(uri: '/services', action: [ServiceController::class, 'index'])->name(name: 'services');
 Route::get(uri: '/quotes', action: [QuoteController::class, 'index'])->name(name: 'quotes');
+Route::post(uri: '/quotes', action: [QuoteController::class, 'store'])->name(name: 'quotes.store');
 Route::get(uri: '/contact', action: [ContactController::class, 'index'])->name(name: 'contact');
 
 // Setup routes
@@ -63,6 +66,23 @@ Route::middleware(['auth', 'verified'])
         // Tags routes
         Route::get('/tags/create', [AdminTagsController::class, 'create'])->name('tags.create');
         Route::post('/tags', [AdminTagsController::class, 'store'])->name('tags.store');
+
+        // Quotes routes
+        Route::get('/quotes', action: [AdminQuotesController::class, 'index'])->name('quotes.index');
+        Route::get('/quotes/{id}', [AdminQuotesController::class, 'show'])->name('quotes.show');
+        Route::get('/quotes/{id}/edit', [AdminQuotesController::class, 'edit'])->name('quotes.edit');
+        Route::put('/quotes/{id}', [AdminQuotesController::class, 'update'])->name('quotes.update');
+        Route::delete('/quotes/{id}', [AdminQuotesController::class, 'destroy'])->name(name: 'quotes.destroy');
+
+        // Skills routes
+        Route::get('/skills', [AdminSkillsController::class, 'index'])->name('skills.index');
+        Route::get('/skills/create', [AdminSkillsController::class, 'create'])->name('skills.create');
+        Route::post('/skills', [AdminSkillsController::class, 'store'])->name('skills.store');
+        Route::get('/skills/{id}/edit', [AdminSkillsController::class, 'edit'])->name('skills.edit');
+        Route::put('/skills/{id}', [AdminSkillsController::class, 'update'])->name('skills.update');
+        Route::delete('/skills/{id}', [AdminSkillsController::class, 'destroy'])->name('skills.destroy');
+        Route::get('/skills/{id}', [AdminSkillsController::class, 'show'])->name('skills.show');
+
     });
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');

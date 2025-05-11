@@ -19,7 +19,7 @@
                 </header>
 
                 <form action="{{ route('dashboard.projects.update', $project->id) }}" method="POST" enctype="multipart/form-data">
-                    @method('PUT') <!-- Utilisation de la méthode PUT pour l'édition -->
+                    @method('PUT')
                     @csrf
 
                     <div>

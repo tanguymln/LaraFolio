@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 class Quote extends Model
 {
     //
+
+    public $timestamps = false;
+
+    protected $fillable = ['name', 'email', 'message'];
+
     public function services()
     {
         return $this->belongsToMany(Service::class);

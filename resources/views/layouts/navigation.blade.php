@@ -21,6 +21,12 @@
                     <x-nav-link :href="route('dashboard.projects.index')" :active="request()->routeIs('dashboard.projects.index')">
                         {{ __('Projets') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('dashboard.quotes.index')" :active="request()->routeIs('dashboard.quotes.index')">
+                        {{ __('Devis') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard.skills.index')" :active="request()->routeIs('dashboard.skills.index')">
+                        {{ __('Expériences') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -51,7 +57,7 @@
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Se déconnecter') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -85,6 +91,12 @@
             <x-responsive-nav-link :href="route('dashboard.projects.index')" :active="request()->routeIs('dashboard.projects.index')">
                 {{ __('Projets') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('dashboard.quotes.index')" :active="request()->routeIs('dashboard.quotes.index')">
+                {{ __('Devis') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('dashboard.skills.index')" :active="request()->routeIs('dashboard.skills.index')">
+                {{ __('Expériences') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -105,7 +117,7 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('Se déconnecter') }}
                     </x-responsive-nav-link>
                 </form>
             </div>
