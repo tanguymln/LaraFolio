@@ -27,6 +27,9 @@
                     <x-nav-link :href="route('dashboard.skills.index')" :active="request()->routeIs('dashboard.skills.index')">
                         {{ __('Expériences') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('dashboard.contacts.index')" :active="request()->routeIs('dashboard.contacts.index')">
+                        {{ __('Contacts') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -51,6 +54,9 @@
                     <x-slot name="content">
                         <x-dropdown-link :href="route('dashboard.profile.edit')">
                             {{ __('Profile') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('dashboard.settings.edit')">
+                            {{ __('Paramètres') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -97,6 +103,9 @@
             <x-responsive-nav-link :href="route('dashboard.skills.index')" :active="request()->routeIs('dashboard.skills.index')">
                 {{ __('Expériences') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('dashboard.contacts.index')" :active="request()->routeIs('dashboard.contacts.index')">
+                {{ __('Contacts') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -111,6 +120,9 @@
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('dashboard.profile.edit')">
                     {{ __('Profile') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('dashboard.settings.edit')">
+                    {{ __('Paramètres') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->

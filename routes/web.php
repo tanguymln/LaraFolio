@@ -1,18 +1,21 @@
 <?php
 
-use App\Http\Controllers\AboutController;
-use App\Http\Controllers\Admin\AdminQuotesController;
-use App\Http\Controllers\AdminProjectsController;
-use App\Http\Controllers\AdminServicesController;
-use App\Http\Controllers\AdminSkillsController;
-use App\Http\Controllers\AdminTagsController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\QuoteController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\SetupController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\SetupController;
+use App\Http\Controllers\AdminTagsController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminSkillsController;
+use App\Http\Controllers\AdminProjectsController;
+use App\Http\Controllers\AdminServicesController;
+use App\Http\Controllers\AdminSettingsController;
+use App\Http\Controllers\Admin\AdminQuotesController;
+use App\Http\Controllers\Admin\AdminContactController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 // Global routes
 Route::get('/', function () {
@@ -38,9 +41,7 @@ Route::middleware(['auth', 'verified'])
     ->name('dashboard.')
     ->group(function () {
         // Dashboard route
-        Route::get('/', function () {
-            return view('dashboard');
-        })->name('index');
+        Route::get('/', [DashboardController::class, 'index'])->name('index');
 
         // Profile routes
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -83,6 +84,13 @@ Route::middleware(['auth', 'verified'])
         Route::delete('/skills/{id}', [AdminSkillsController::class, 'destroy'])->name('skills.destroy');
         Route::get('/skills/{id}', [AdminSkillsController::class, 'show'])->name('skills.show');
 
+        // Contact routes
+        Route::get('/contacts', [AdminContactController::class, 'index'])->name('contacts.index');
+        Route::get('/contacts/{id}', [AdminContactController::class, 'show'])->name('contacts.show');
+        Route::delete('/contacts/{id}', [AdminContactController::class, 'destroy'])->name('contacts.destroy');
+
+        // Settings routes
+        Route::get('/settings', [AdminSettingsController::class, 'edit'])->name('settings.edit');
     });
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
