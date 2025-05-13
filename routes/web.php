@@ -91,6 +91,9 @@ Route::middleware(['auth', 'verified'])
 
         // Settings routes
         Route::get('/settings', [AdminSettingsController::class, 'edit'])->name('settings.edit');
+        Route::put('/settings/site', [AdminSettingsController::class, 'updateSite'])->name('settings.site');
+        Route::put('/settings/owner', [AdminSettingsController::class, 'updateOwner'])->name('settings.owner');
+        Route::put('/settings/home', [AdminSettingsController::class, 'updateHome'])->name('settings.home');
     });
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');

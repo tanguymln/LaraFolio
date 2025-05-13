@@ -37,6 +37,7 @@
             @endisset
         </main>
         @yield('scripts')
+        @stack('scripts')
     </div>
 </body>
 
