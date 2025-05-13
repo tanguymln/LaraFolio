@@ -39,9 +39,9 @@ class AdminSettingsController extends Controller
             $uuid = Str::uuid()->toString();
             $extension = $image->getClientOriginalExtension();
             $filename = $uuid . '.' . $extension;
-            $image->move(public_path('assets'), $filename);
+            $image->move(public_path('home'), $filename);
 
-            $logoPath = 'assets/' . $filename;
+            $logoPath = 'home/' . $filename;
             SiteSetting::updateOrCreate(['key' => 'site_logo'], ['value' => $logoPath]);
         }
 
