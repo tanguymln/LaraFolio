@@ -1,6 +1,6 @@
 <a href="/">
     @if ($siteLogo)
-        <img src="{{ asset(config('app.logo')) }}" alt="{{ config('app.name') }}" class="w-20 h-20">
+        <img src="{{ config('app.url') . '/' . $siteLogo }}" alt="{{ config('app.name') }}" class="w-20 h-20">
     @else
         <x-application-logo class="w-16 h-16 fill-current text-gray-800" />
     @endif
@@ -59,6 +59,8 @@
     @endauth
     @guest
         <a href="{{ route('login') }}" class="btn btn-white m-1 text-black dark:text-white bg-white dark:bg-gray-800">Connexion</a>
-        <a href="{{ route('register') }}" class="btn btn-white border-none m-1 text-white bg-blue-500 hover:bg-blue-600">Inscription</a>
+        @if (!$isRegistered)
+            <a href="{{ route('register') }}" class="btn btn-white border-none m-1 text-white bg-blue-500 hover:bg-blue-600">Inscription</a>
+        @endif
     @endguest
 </div>

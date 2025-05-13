@@ -16,11 +16,10 @@ use App\Http\Controllers\AdminSettingsController;
 use App\Http\Controllers\Admin\AdminQuotesController;
 use App\Http\Controllers\Admin\AdminContactController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\HomeController;
 
 // Global routes
-Route::get('/', function () {
-    return view(view: 'home');
-})->name('home');
+Route::get(uri: '/', action: [HomeController::class, 'index'])->name(name: 'home');
 Route::get(uri: '/about', action: [AboutController::class, 'index'])->name(name: 'about');
 Route::get(uri: '/services', action: [ServiceController::class, 'index'])->name(name: 'services');
 Route::get(uri: '/quotes', action: [QuoteController::class, 'index'])->name(name: 'quotes');
