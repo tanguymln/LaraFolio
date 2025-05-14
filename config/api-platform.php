@@ -24,12 +24,10 @@ return [
     'routes' => [
         'domain' => null,
         // Global middleware applied to every API Platform routes
-        // 'middleware' => []
+        // 'middleware' => ['auth:api'],
     ],
 
-    'resources' => [
-        app_path('Models'),
-    ],
+    'resources' => [app_path('Models')],
 
     'formats' => [
         'jsonld' => ['application/ld+json'],
@@ -61,7 +59,7 @@ return [
         'pagination_items_per_page' => 30,
         'pagination_maximum_items_per_page' => 30,
         'route_prefix' => '/api',
-        'middleware' => [],
+        'middleware' => ['auth:api'],
     ],
 
     'pagination' => [
@@ -100,16 +98,16 @@ return [
         //        'in' => 'header'
         //    ]
         // ],
-        // 'oauth' => [
-        //    'enabled' => true,
-        //    'type' => 'oauth2',
-        //    'flow' => 'authorizationCode',
-        //    'tokenUrl' => '',
-        //    'authorizationUrl' =>'',
-        //    'refreshUrl' => '',
-        //    'scopes' => ['scope1' => 'Description scope 1'],
-        //    'pkce' => true
-        // ],
+        'oauth' => [
+            'enabled' => true,
+            'type' => 'oauth2',
+            'flow' => 'password',
+            'tokenUrl' => 'oauth/token',
+            'authorizationUrl' => '',
+            'refreshUrl' => '',
+            'scopes' => ['scope1' => 'Description scope 1'],
+            'pkce' => false,
+        ],
         // 'license' => [
         //    'name' => 'Apache 2.0',
         //    'url' => 'https://www.apache.org/licenses/LICENSE-2.0.html',

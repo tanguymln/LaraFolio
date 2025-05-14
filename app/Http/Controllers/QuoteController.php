@@ -53,7 +53,6 @@ class QuoteController extends Controller
         ]);
 
         $quote->services()->sync($serviceIds);
-
         return redirect()->route('home')->with('success', 'Votre demande de devis a bien été envoyée !');
     }
 

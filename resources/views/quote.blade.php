@@ -42,7 +42,7 @@
             <!-- Quote request form -->
             <div class="mt-10 p-8 bg-white dark:bg-gray-700 rounded-2xl shadow-inner">
                 <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-5">Envoyer ma demande de devis</h2>
-                <form id="quote-form" action="{{ route('quotes.store') }}" method="POST" class="space-y-6">
+                <form id="quote-form" action="{{ route('web.quotes.store') }}" method="POST" class="space-y-6">
                     @csrf
                     <input type="hidden" name="services" id="services-input">
                     <input type="hidden" name="total_price" id="total-input">

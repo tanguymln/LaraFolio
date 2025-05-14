@@ -40,6 +40,8 @@ class AdminContactController extends Controller
     public function show(string $id)
     {
         //
+        $contact = Contact::findOrFail($id);
+        return view('admin.contact.show', compact('contact'));
     }
 
     /**
@@ -64,5 +66,8 @@ class AdminContactController extends Controller
     public function destroy(string $id)
     {
         //
+        $contact = Contact::findOrFail($id);
+        $contact->delete();
+        return redirect()->route('dashboard.contacts.index')->with('success', 'Contact deleted successfully');
     }
 }

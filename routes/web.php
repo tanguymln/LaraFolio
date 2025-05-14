@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\QuoteController;
@@ -23,8 +24,10 @@ Route::get(uri: '/', action: [HomeController::class, 'index'])->name(name: 'home
 Route::get(uri: '/about', action: [AboutController::class, 'index'])->name(name: 'about');
 Route::get(uri: '/services', action: [ServiceController::class, 'index'])->name(name: 'services');
 Route::get(uri: '/quotes', action: [QuoteController::class, 'index'])->name(name: 'quotes');
-Route::post(uri: '/quotes', action: [QuoteController::class, 'store'])->name(name: 'quotes.store');
+Route::post(uri: '/quotes', action: [QuoteController::class, 'store'])->name(name: 'web.quotes.store');
 Route::get(uri: '/contact', action: [ContactController::class, 'index'])->name(name: 'contact');
+Route::post(uri: '/contact', action: [ContactController::class, 'store'])->name(name: 'web.contact.store');
+Route::get('/search', [SearchController::class, 'search']);
 
 // Setup routes
 Route::prefix('setup')

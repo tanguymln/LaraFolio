@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mx-auto">
-        <section class="flex flex-col md:flex-row items-center justify-center gap-8 p-8 lg:min-h-[800px]">
+        <section class="flex flex-col md:flex-row items-center justify-center gap-8 p-8 md:min-h-[800px]">
             <div class="flex-1 flex flex-col gap-4">
                 <div>
                     <p class="text-blue-500 font-semibold">Salut 👋, je suis</p>

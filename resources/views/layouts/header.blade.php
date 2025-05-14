@@ -54,6 +54,16 @@
         </span>
     </button> --}}
 
+    <div class="relative w-full max-w-md mx-auto">
+        <input type="text" id="global-search" placeholder="Rechercher..."
+            class="w-full px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white">
+
+        <ul id="search-results"
+            class="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto hidden dark:bg-gray-900 dark:border-gray-700">
+            <!-- Résultats dynamiques ici -->
+        </ul>
+    </div>
+
     @auth
         <a href="{{ route('dashboard.index') }}" class="btn btn-white m-1 text-black dark:text-white bg-white dark:bg-gray-800">Dashboard</a>
     @endauth
@@ -64,3 +74,62 @@
         @endif
     @endguest
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('global-search');
+        const resultsBox = document.getElementById('search-results');
+
+        let timeout;
+
+        searchInput.addEventListener('input', function() {
+            clearTimeout(timeout);
+            const query = this.value.trim();
+
+            if (query.length < 2) {
+                resultsBox.innerHTML = '';
+                resultsBox.classList.add('hidden');
+                return;
+            }
+
+            timeout = setTimeout(() => {
+                fetch(`/search?q=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.length) {
+                            resultsBox.innerHTML = '<li class="px-4 py-2 text-gray-500">Aucun résultat</li>';
+                            resultsBox.classList.remove('hidden');
+                            return;
+                        }
+
+                        const grouped = {};
+
+                        data.forEach(item => {
+                            if (!grouped[item.type]) grouped[item.type] = [];
+                            grouped[item.type].push(item);
+                        });
+
+                        let html = '';
+
+                        for (let type in grouped) {
+                            html += `<li class="px-4 py-2 text-xs font-bold text-gray-600 uppercase">${type}</li>`;
+                            grouped[type].forEach(item => {
+                                html += `<li class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
+                                            <a href="${item.url}" class="block text-gray-800 dark:text-white">${item.name}</a>
+                                         </li>`;
+                            });
+                        }
+
+                        resultsBox.innerHTML = html;
+                        resultsBox.classList.remove('hidden');
+                    });
+            }, 300);
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!searchInput.contains(e.target) && !resultsBox.contains(e.target)) {
+                resultsBox.classList.add('hidden');
+            }
+        });
+    });
+</script>

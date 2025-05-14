@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +13,8 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
-        Passport::ignoreRoutes();
+        Passport::enablePasswordGrant();
+        Passport::personalAccessTokensExpireIn(now()->hour(1));
     }
 
     /**
