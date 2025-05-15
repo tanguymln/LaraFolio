@@ -26,6 +26,7 @@ class AdminSettingsController extends Controller
 
     public function updateSite(Request $request)
     {
+        dd($request);
         // Validate and update site settings
         $request->validate([
             'site_name' => 'required|string|max:255',

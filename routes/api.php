@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminTagsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\ProjectController;

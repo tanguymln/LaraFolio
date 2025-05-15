@@ -31,7 +31,7 @@
                             {!! $field[key($field)]($row) !!}
                         @else
                             <!-- Sinon, on affiche simplement la valeur du champ -->
-                            {{ Str::limit(data_get($row, $field), 75) }}
+                            {{ Str::limit(data_get($row, $field), 50) }}
                         @endif
                 @endforeach
 

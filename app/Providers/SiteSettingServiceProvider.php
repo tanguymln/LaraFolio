@@ -24,10 +24,12 @@ class SiteSettingServiceProvider extends ServiceProvider
         //
         $siteName = SiteSetting::where('key', 'site_name')->value('value') ?? config('app.name');
         $siteLogo = SiteSetting::where('key', 'site_logo')->value('value') ?? null;
+        $ownerEmail = SiteSetting::where('key', 'owner_email')->value('value') ?? null;
         $isRegistered = User::count() > 0;
 
         View::share('siteName', $siteName);
         View::share('siteLogo', $siteLogo);
         View::share('isRegistered', $isRegistered);
+        View::share('ownerEmail', $ownerEmail);
     }
 }

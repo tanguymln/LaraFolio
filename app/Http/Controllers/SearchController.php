@@ -26,7 +26,7 @@ class SearchController extends Controller
                     'id' => $item->id,
                     'name' => $item->name,
                     'type' => 'Services',
-                    'url' => route('services') . '#service-' . $item->id,
+                    'url' => route('services'),
                 ];
             });
 

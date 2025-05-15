@@ -6,8 +6,17 @@
             <div class="flex-1 flex flex-col gap-4">
                 <div>
                     <p class="text-blue-500 font-semibold">Salut 👋, je suis</p>
-                    <h1 class="text-5xl font-bold text-gray-900 dark:text-white">{{ explode(' ', $settings['owner_name'])[0] ?? 'Nicolas' }} <span
-                            class="text-blue-500 font-bold">{{ explode(' ', $settings['owner_name'])[1] ?? 'Leroy' }}</span></h1>
+                    @php
+                        $ownerName = trim($settings['owner_name']);
+                        $parts = $ownerName ? explode(' ', $ownerName) : ['Nicolas', 'Leroy'];
+                    @endphp
+
+                    <h1 class="text-5xl font-bold text-gray-900 dark:text-white">
+                        {{ $parts[0] ?? 'Nicolas' }}
+                        <span class="text-blue-500 font-bold">
+                            {{ $parts[1] ?? 'Leroy' }}
+                        </span>
+                    </h1>
                     <p class="text-gray-500 dark:text-gray-400 text-lg font-semibold">Développeur Web
                         FullStack</p>
                 </div>

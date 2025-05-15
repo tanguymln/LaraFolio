@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Middleware\CheckSiteSettings;
+use App\Http\Middleware\RegisteredMiddleware;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;

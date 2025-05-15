@@ -14,8 +14,8 @@ class HomeController extends Controller
     {
         $settings = [
             'home_image_path' => SiteSetting::get('home_image_path') ?? null,
-            'owner_name' => SiteSetting::get('owner_name') ?? null,
-            'owner_title' => SiteSetting::get('owner_title') ?? null,
+            'owner_name' => trim(SiteSetting::get('owner_name')) ?? null,
+            'owner_title' => SiteSetting::get('owner_title') ?? '',
         ];
 
         $services = Service::all();
