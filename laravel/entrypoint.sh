@@ -3,6 +3,11 @@ set -e
 
 echo "🔧 Running Laravel setup..."
 
+if [ ! -d vendor ]; then
+  echo "📦 Installing PHP dependencies with Composer..."
+  composer install --no-interaction --prefer-dist --optimize-autoloader
+fi
+
 php artisan migrate --force
 php artisan config:cache
 php artisan route:cache

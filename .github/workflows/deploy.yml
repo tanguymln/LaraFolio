@@ -27,11 +27,7 @@ jobs:
         run: |
           echo "[web]" > ansible/inventory/hosts
           echo "${{ secrets.SSH_HOST }}" >> ansible/inventory/hosts
-
-      - name: Show inventory file content
-        run: cat ansible/inventory/hosts
-
-
+          
       - name: Run Ansible playbook
         run: |
           ansible-playbook -i ansible/inventory/hosts ansible/playbooks/laravel-deploy.yml \
