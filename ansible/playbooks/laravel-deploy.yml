@@ -1,6 +1,8 @@
 - name: Deploy Laravel App with Docker Swarm
   hosts: web
   become: true
+  vars_files:
+    - ../group_vars/all.yml
   tasks:
     - name: Ensure /portfolio directory exists
       file:
