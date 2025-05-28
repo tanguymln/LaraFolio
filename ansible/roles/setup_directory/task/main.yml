@@ -1,6 +1,7 @@
-- name: Ensure portfolio directory exists
+- name: Ensure target directory exists
   file:
-    path: "{{ default_deploy_path }}/portfolio"
+    path: "{{ default_deploy_path }}/portfolio/laravel"
     state: directory
     owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: "0755"
