@@ -23,6 +23,12 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
+      - name: Create dynamic inventory file
+        run: |
+          echo "[web]" > ansible/inventory/hosts
+          echo "${{ secrets.SSH_HOST }}" >> ansible/inventory/hosts
+
+
       - name: Run Ansible playbook
         run: |
           ansible-playbook -i ansible/inventory/hosts ansible/playbooks/laravel-deploy.yml \
