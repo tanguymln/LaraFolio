@@ -9,6 +9,9 @@ RUN apk add --no-cache \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY . /app
+
 RUN chmod +x /app/entrypoint.sh
+
+RUN chmod -R 775 .
 
 WORKDIR /app
