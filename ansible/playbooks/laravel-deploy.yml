@@ -28,12 +28,6 @@
         src: "{{ playbook_dir }}/../../nginx.conf"
         dest: "{{ default_deploy_path }}/portfolio/nginx.conf"
 
-    - name: Copy entrypoint.sh
-      copy:
-        src: "{{ playbook_dir }}/../../entrypoint.sh"
-        dest: "{{ default_deploy_path }}/portfolio/entrypoint.sh"
-        mode: "0755"
-
     - name: Initialize Docker Swarm
       shell: docker swarm init || true
 
