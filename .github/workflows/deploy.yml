@@ -10,27 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
 
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          extensions: mbstring, bcmath, xml, curl, zip, pdo, pgsql
-          tools: composer
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
-
-      - name: Copy .env
-        run: cp .env.example .env
-
-      - name: Generate app key
-        run: php artisan key:generate
-
-      - name: Cache Laravel config
-        run: php artisan config:cache
+        - name: Deploy (placeholder)
+          run: echo "🚀 build ..."
 
   test:
     runs-on: ubuntu-latest
