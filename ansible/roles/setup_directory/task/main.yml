@@ -4,10 +4,3 @@
     state: directory
     owner: "{{ ansible_user }}"
     mode: "0755"
-
-- name: Ensure laravel directory exists inside portfolio
-  file:
-    path: "{{ default_deploy_path }}/portfolio/laravel"
-    state: directory
-    owner: "{{ ansible_user }}"
-    mode: "0755"
