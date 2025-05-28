@@ -10,12 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-        - name: Deploy (placeholder)
-          run: echo "🚀 build ..."
+      - name: Deploy (placeholder)
+        run: echo "🚀 build ..."
 
   test:
     runs-on: ubuntu-latest
