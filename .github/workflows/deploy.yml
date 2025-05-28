@@ -11,8 +11,26 @@ jobs:
 
     steps:
       - name: Checkout code
-        run: |
-          echo "Checking out code..."
+        uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, bcmath, xml, curl, zip, pdo, pgsql
+          tools: composer
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Copy .env
+        run: cp .env.example .env
+
+      - name: Generate app key
+        run: php artisan key:generate
+
+      - name: Cache Laravel config
+        run: php artisan config:cache
 
   test:
     runs-on: ubuntu-latest
@@ -45,7 +63,7 @@ jobs:
           tools: composer
 
       - name: Install dependencies
-        run: composer install
+        run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Copy .env
         run: cp .env.example .env
@@ -62,14 +80,18 @@ jobs:
       - name: Generate app key
         run: php artisan key:generate
 
-      - name: Run Laravel tests
-        run: php artisan migrate --force && php artisan test
+      - name: Run migrations and tests
+        run: |
+          php artisan migrate --force
+          php artisan test
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+    needs: test
 
     steps:
       - name: Checkout code
-        run: |
-          echo "Checking out code..."
+        uses: actions/checkout@v2
+
+      - name: Deploy (placeholder)
+        run: echo "🚀 Deploying to production server..."
