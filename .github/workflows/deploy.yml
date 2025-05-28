@@ -30,6 +30,6 @@ jobs:
 
       - name: Run Ansible playbook
         run: |
-          ansible-playbook -i ansible/inventory/hosts ansible/playbooks/laravel-deploy.yml -vvv \
+          ansible-playbook -i ansible/inventory/hosts ansible/playbooks/laravel-deploy.yml \
             --user ${{ secrets.SSH_USER }} \
             --private-key ~/.ssh/id_rsa
