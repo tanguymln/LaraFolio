@@ -6,64 +6,29 @@ on:
       - main
 
 jobs:
-  build-test:
+  ansible:
     runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_USER: laravel
-          POSTGRES_PASSWORD: secret
-          POSTGRES_DB: laravel
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd="pg_isready"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          php-version: '8.2'
-          extensions: mbstring, bcmath, xml, curl, zip, pdo, pgsql
-          tools: composer
+          python-version: '3.x'
 
-      - name: Copy .env
-        run: cp .env.example .env
-
-      - name: Configure .env for PostgreSQL
+      - name: Install Ansible
         run: |
-          echo "DB_CONNECTION=pgsql" >> .env
-          echo "DB_HOST=127.0.0.1" >> .env
-          echo "DB_PORT=5432" >> .env
-          echo "DB_DATABASE=laravel" >> .env
-          echo "DB_USERNAME=laravel" >> .env
-          echo "DB_PASSWORD=secret" >> .env
+          python -m pip install --upgrade pip
+          pip install ansible
 
-      - name: Install Composer dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
-
-      - name: Generate app key
-        run: php artisan key:generate
-
-      - name: Run migrations and tests
+      - name: Set up SSH private key
         run: |
-          php artisan migrate --force
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build-test
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Deploy (placeholder)
-        run: echo "🚀 Deploying to production server..."
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > id_rsa
+          chmod 600 id_rsa
+          
+      - name: Deploy via Ansible
+        run: |
+          ansible-playbook -i ansible/hosts ansible/laravel-deploy.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: False

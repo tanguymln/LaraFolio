@@ -5,7 +5,7 @@ services:
             - '8080:80'
         volumes:
             - ./nginx.conf:/etc/nginx/conf.d/default.conf
-            - ./:/app:ro
+            - ./laravel/:/app:ro
         networks:
             - laravel-net
 
@@ -13,7 +13,7 @@ services:
         image: laravel-php:latest
         command: ['sh', '/app/entrypoint.sh']
         volumes:
-            - ./:/app
+            - ./laravel/:/app
         networks:
             - laravel-net
         deploy:
