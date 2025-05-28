@@ -92,9 +92,6 @@ jobs:
     needs: test
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: deploy
-        script: |
+        run: |
           echo "Deploying to production server..."
