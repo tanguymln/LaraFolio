@@ -21,6 +21,7 @@ jobs:
     steps:
       - name: Checkout code
         run: |
+          echo "Checking out code..."
 
   deploy:
     runs-on: ubuntu-latest
