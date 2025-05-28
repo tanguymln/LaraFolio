@@ -3,39 +3,8 @@
   become: true
   vars_files:
     - ../group_vars/all.yml
-  tasks:
-    - name: Ensure /portfolio directory exists
-      file:
-        path: "{{ default_deploy_path }}/portfolio"
-        state: directory
-        owner: "{{ ansible_user }}"
-        mode: "0755"
-
-    - name: Copy application code to remote server
-      synchronize:
-        src: "{{ playbook_dir }}/../../laravel/"
-        dest: "{{ default_deploy_path }}/portfolio/laravel"
-        recursive: yes
-        delete: yes
-
-    - name: Copy docker-compose.yml
-      copy:
-        src: "{{ playbook_dir }}/../../docker-compose.yml"
-        dest: "{{ default_deploy_path }}/portfolio/docker-compose.yml"
-
-    - name: Copy nginx.conf
-      copy:
-        src: "{{ playbook_dir }}/../../nginx.conf"
-        dest: "{{ default_deploy_path }}/portfolio/nginx.conf"
-
-    - name: Initialize Docker Swarm
-      shell: docker swarm init || true
-
-    - name: Build Docker image for Laravel app
-      shell: |
-        docker build -t laravel-php:latest {{ default_deploy_path }}/portfolio/laravel
-      args:
-        chdir: "{{ default_deploy_path }}"
-
-    - name: Deploy Docker stack
-      shell: docker stack deploy -c {{ default_deploy_path }}/portfolio/docker-compose.yml laravel
+  roles:
+    - setup_directory
+    - deploy_code
+    - configure_env
+    - docker

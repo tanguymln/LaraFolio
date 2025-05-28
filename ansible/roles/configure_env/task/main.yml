@@ -1,0 +1,22 @@
+- name: Copy .env.example to .env if .env does not exist
+  copy:
+    src: "{{ playbook_dir }}/../../laravel/.env.example"
+    dest: "{{ default_deploy_path }}/portfolio/laravel/.env"
+    remote_src: no
+  args:
+    creates: "{{ default_deploy_path }}/portfolio/laravel/.env"
+
+- name: Set environment variables in .env
+  lineinfile:
+    path: "{{ default_deploy_path }}/portfolio/laravel/.env"
+    regexp: "^{{ item.key }}="
+    line: "{{ item.key }}={{ item.value }}"
+    create: yes
+  with_items:
+    - { key: "DB_CONNECTION", value: "pgsql" }
+    - { key: "DB_HOST", value: "db" }
+    - { key: "DB_PORT", value: "5432" }
+    - { key: "DB_DATABASE", value: "laravel" }
+    - { key: "DB_USERNAME", value: "laravel" }
+    - { key: "DB_PASSWORD", value: "secret" }
+    - { key: "APP_URL", value: "http://localhost:8080" }

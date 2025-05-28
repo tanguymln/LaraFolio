@@ -1,0 +1,6 @@
+- name: Ensure /portfolio directory exists
+  file:
+    path: "{{ default_deploy_path }}/portfolio"
+    state: directory
+    owner: "{{ ansible_user }}"
+    mode: "0755"

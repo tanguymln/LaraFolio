@@ -1,0 +1,11 @@
+- name: Initialize Docker Swarm
+  shell: docker swarm init || true
+
+- name: Build Docker image for Laravel app
+  shell: |
+    docker build -t laravel-php:latest {{ default_deploy_path }}/portfolio/laravel
+  args:
+    chdir: "{{ default_deploy_path }}"
+
+- name: Deploy Docker stack
+  shell: docker stack deploy -c {{ default_deploy_path }}/portfolio/docker-compose.yml laravel
