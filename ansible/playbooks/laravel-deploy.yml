@@ -1,0 +1,39 @@
+- name: Deploy Laravel App with Docker Swarm
+  hosts: web
+  become: true
+  tasks:
+    - name: Ensure /portfolio directory exists
+      file:
+        path: /portfolio
+        state: directory
+        owner: "{{ ansible_user }}"
+        mode: "0755"
+
+    - name: Copy application code to remote server
+      synchronize:
+        src: "{{ playbook_dir }}/../../laravel/"
+        dest: /portfolio/laravel
+        recursive: yes
+        delete: yes
+
+    - name: Copy docker-compose.yml
+      copy:
+        src: "{{ playbook_dir }}/../../docker-compose.yml"
+        dest: /portfolio/docker-compose.yml
+
+    - name: Copy nginx.conf
+      copy:
+        src: "{{ playbook_dir }}/../../nginx.conf"
+        dest: /portfolio/nginx.conf
+
+    - name: Copy entrypoint.sh
+      copy:
+        src: "{{ playbook_dir }}/../../entrypoint.sh"
+        dest: /portfolio/entrypoint.sh
+        mode: "0755"
+
+    - name: Initialize Docker Swarm
+      shell: docker swarm init || true # Ignore if already initialized
+
+    - name: Deploy Docker stack
+      shell: docker stack deploy -c /portfolio/docker-compose.yml laravel
