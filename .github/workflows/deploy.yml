@@ -36,6 +36,8 @@ jobs:
         run: |
           docker run --rm \
             -v ${{ github.workspace }}:/workspace \
+            -v ~/.ssh/id_rsa:/root/.ssh/id_rsa:ro \
+            -v ~/.ssh/known_hosts:/root/.ssh/known_hosts:ro \
             -w /workspace \
             --user root \
             ghcr.io/tanguymln/ansible:latest \
