@@ -8,8 +8,6 @@ RUN apk add --no-cache \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN curl -fsSL https://nodejs.org/dist/v20.7.0/node-v20.7.0-linux-x64-musl.tar.xz | tar -xJ -C /usr/local --strip-components=1
-
 RUN node -v && npm -v
 
 COPY . /app
