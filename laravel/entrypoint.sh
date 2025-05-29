@@ -1,35 +1,55 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
-echo "🔧 Running Laravel setup..."
+echo "🔧 Starting Laravel container setup..."
 
-echo "📦 Installing PHP dependencies with Composer..."
-composer install --no-interaction --prefer-dist --optimize-autoloader
-
-echo "🔐 Fixing permissions for Laravel..."
-mkdir -p storage/logs bootstrap/cache
-chown -R www-data:www-data storage bootstrap/cache
-chmod -R 775 storage bootstrap/cache
-
-echo "🔧 Setting up laravel environment..."
-php artisan optimize:clear
-if ! grep -q '^APP_KEY=base64:' .env; then
-  echo "Generating APP_KEY..."
-  php artisan key:generate --force
+# Installer dépendances PHP si vendor manquant
+if [ ! -d vendor ]; then
+    echo "📦 Installing PHP dependencies..."
+    composer install --no-interaction --prefer-dist --optimize-autoloader
 else
-  echo "APP_KEY already set, skipping key generation."
+    echo "✅ PHP dependencies already installed."
 fi
+
+# Installer dépendances Node si node_modules manquant
+if [ ! -d node_modules ]; then
+    echo "📦 Installing Node dependencies..."
+    npm install
+else
+    echo "✅ Node dependencies already installed."
+fi
+
+# Builder front si dossier public/build manquant (à adapter selon ton build)
+if [ ! -d public/build ]; then
+    echo "🏗 Building frontend assets..."
+    npm run build
+else
+    echo "✅ Frontend already built."
+fi
+
+# Fixer permissions (optionnel selon user)
+chown -R www-data:www-data storage bootstrap/cache
+
+# Clé APP_KEY
+if ! grep -q '^APP_KEY=base64:' .env; then
+    echo "🔐 Generating APP_KEY..."
+    php artisan key:generate --force
+else
+    echo "✅ APP_KEY already set."
+fi
+
+# Lancer migrations
+echo "🚀 Running migrations..."
 php artisan migrate --force
+
+# Optimiser cache
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
+
+# Créer lien storage si absent
 [ ! -L public/storage ] && php artisan storage:link
 
-echo "📦 Installing Node modules..."
-npm install
-
-echo "🏗️ Building frontend assets..."
-npm run build
-
+# Lancer PHP-FPM
 echo "🚀 Starting PHP-FPM..."
 exec php-fpm
