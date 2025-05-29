@@ -8,6 +8,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    container:
+      image: ansible/ansible:latest
+      options: --user root
 
     steps:
       - name: Checkout code
