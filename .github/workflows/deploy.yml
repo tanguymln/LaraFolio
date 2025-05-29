@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     container:
-      image: ansible/ansible:latest
+      image: williamyeh/ansible:alpine3
       options: --user root
 
     steps:
