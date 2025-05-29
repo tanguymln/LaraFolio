@@ -4,7 +4,7 @@ RUN apk add --no-cache \
         postgresql-dev \
         nodejs \
         npm \
-    && docker-php-ext-install pdo pdo_pgsql gd zip mbstring
+    && docker-php-ext-install pdo pdo_pgsql
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
