@@ -43,4 +43,4 @@ jobs:
             ghcr.io/tanguymln/ansible:latest \
             ansible-playbook -i ansible/inventory/hosts ansible/playbooks/laravel-deploy.yml \
               --user ${{ secrets.SSH_USER }} \
-              --private-key ~/.ssh/id_rsa
+              --private-key /root/.ssh/id_rsa
