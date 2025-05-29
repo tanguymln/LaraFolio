@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     container:
-      image: williamyeh/ansible:ubuntu18.04
+      image: ghcr.io/tanguymln/ansible:latest
       options: --user root
 
     steps:
