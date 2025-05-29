@@ -3,5 +3,4 @@
     path: "{{ default_deploy_path }}/portfolio/laravel"
     state: directory
     owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
     mode: "0755"
