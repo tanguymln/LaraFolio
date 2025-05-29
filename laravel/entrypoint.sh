@@ -11,9 +11,14 @@ else
     echo "✅ PHP dependencies already installed."
 fi
 
+echo "📦 Nettoyer cache npm"
+npm cache clean --force
+
+
 # Installer dépendances Node si node_modules manquant
 if [ ! -d node_modules ]; then
     echo "📦 Installing Node dependencies..."
+
     npm install
 else
     echo "✅ Node dependencies already installed."
