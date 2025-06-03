@@ -47,6 +47,11 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          args: >
+            -Dsonar.projectKey=lara-folio
+            -Dsonar.sources=laravel/app
+            -Dsonar.projectName=LaraFolio
 
       - uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5
