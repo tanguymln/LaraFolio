@@ -26,6 +26,10 @@ jobs:
         working-directory: ./laravel
         run: composer install --no-progress --prefer-dist
 
+      - name: Install PHP_CodeSniffer
+        working-directory: ./laravel
+        run: composer require --dev squizlabs/php_codesniffer --no-interaction --no-progress
+
       - name: Run PHP_CodeSniffer
         working-directory: ./laravel
         run: ./vendor/bin/phpcs --standard=PSR12 app
@@ -49,6 +53,10 @@ jobs:
       - name: Install dependencies
         working-directory: ./laravel
         run: composer install --no-progress --prefer-dist
+
+      - name: Install PHPMD
+        working-directory: ./laravel
+        run: composer require --dev phpmd/phpmd --no-interaction --no-progress
 
       - name: Run PHPMD
         working-directory: ./laravel
