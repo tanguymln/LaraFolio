@@ -55,7 +55,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [lint, lint-phpmd]
+    needs: [lint, sonar]
 
     steps:
       - name: Login to GitHub Container Registry
