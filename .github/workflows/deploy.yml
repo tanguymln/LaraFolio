@@ -14,6 +14,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Prepare SQLite DB file
+        run: touch ./laravel/database/database.sqlite
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -34,6 +37,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Prepare SQLite DB file
+        run: touch ./laravel/database/database.sqlite
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
