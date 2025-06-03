@@ -58,6 +58,10 @@ jobs:
         working-directory: ./laravel
         run: composer require --dev phpmd/phpmd --no-interaction --no-progress
 
+      - name: Debug PHPMD config file
+        working-directory: ./laravel
+        run: cat ../.phpmd.xml
+
       - name: Run PHPMD
         working-directory: ./laravel
         run: ./vendor/bin/phpmd app text ../.phpmd.xml
