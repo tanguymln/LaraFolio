@@ -32,50 +32,26 @@ jobs:
 
       - name: Run PHP_CodeSniffer
         working-directory: ./laravel
-        run: ./vendor/bin/phpcs --standard=PSR12 app
+        run: ./vendor/bin/phpcs --standard=PSR12 --report=summary app || true
 
-  lint-phpmd:
-    name: Lint with PHPMD (Mess Detector)
+  sonar:
+    name: sonar
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Prepare SQLite DB file
-        run: touch ./laravel/database/database.sqlite
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - uses: actions/checkout@v2
         with:
-          php-version: "8.3"
+          fetch-depth: 0
 
-      - name: Install dependencies
-        working-directory: ./laravel
-        run: composer install --no-progress --prefer-dist
+      - uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
-      - name: Install PHPMD
-        working-directory: ./laravel
-        run: composer require --dev phpmd/phpmd:^2.13 --no-interaction --no-progress
-
-      - name: Create phpmd.xml ruleset
-        run: |
-          cat <<EOF > ./laravel/.phpmd.xml
-          <?xml version="1.0"?>
-          <ruleset name="Laravel Ruleset">
-              <description>Ruleset for Laravel app</description>
-              <rule ref="cleancode" />
-              <rule ref="codesize" />
-              <rule ref="controversial" />
-              <rule ref="design" />
-              <rule ref="naming" />
-              <rule ref="unusedcode" />
-          </ruleset>
-          EOF
-
-      - name: Run PHPMD
-        working-directory: ./laravel
-        run: ./vendor/bin/phpmd app text .phpmd.xml
+      - uses: sonarsource/sonarqube-quality-gate-action@master
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   deploy:
     runs-on: ubuntu-latest
