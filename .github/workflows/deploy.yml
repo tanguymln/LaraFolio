@@ -35,7 +35,7 @@ jobs:
         run: ./vendor/bin/phpcs --standard=PSR12 app
 
   lint-phpmd:
-    name: Lint with PHPMD (Mess Detector)
+    name: Run PHPMD (Mess Detector)
     runs-on: ubuntu-latest
 
     steps:
@@ -58,12 +58,12 @@ jobs:
         working-directory: ./laravel
         run: composer require --dev phpmd/phpmd --no-interaction --no-progress
 
-      - name: Debug PHPMD config file
-        run: cat $GITHUB_WORKSPACE/.phpmd.xml
+      - name: Copy PHPMD config
+        run: cp $GITHUB_WORKSPACE/.phpmd.xml ./laravel/.phpmd.xml
 
       - name: Run PHPMD
         working-directory: ./laravel
-        run: ./vendor/bin/phpmd app text $GITHUB_WORKSPACE/.phpmd.xml
+        run: ./vendor/bin/phpmd app text .phpmd.xml
 
   deploy:
     runs-on: ubuntu-latest
