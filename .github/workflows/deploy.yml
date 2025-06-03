@@ -6,6 +6,44 @@ on:
       - main
 
 jobs:
+  lint:
+    name: Run PHP_CodeSniffer (phpcs)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+
+      - name: Install dependencies
+        run: composer install --no-progress --no-suggest --prefer-dist
+
+      - name: Run PHP_CodeSniffer
+        run: ./vendor/bin/phpcs --standard=PSR12 app
+
+  lint-phpmd:
+    name: Run PHPMD (Mess Detector)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+
+      - name: Install dependencies
+        run: composer install --no-progress --no-suggest --prefer-dist
+
+      - name: Run PHPMD
+        run: ./vendor/bin/phpmd app text phpmd.xml
+
   deploy:
     runs-on: ubuntu-latest
 

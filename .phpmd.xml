@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset name="Laravel Ruleset">
+    <description>Ruleset for Laravel app</description>
+    <rule ref="cleancode" />
+    <rule ref="codesize" />
+    <rule ref="controversial" />
+    <rule ref="design" />
+    <rule ref="naming" />
+    <rule ref="unusedcode" />
+</ruleset>
