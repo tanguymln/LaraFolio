@@ -20,9 +20,11 @@ jobs:
           php-version: "8.3"
 
       - name: Install dependencies
+        working-directory: ./laravel
         run: composer install --no-progress --prefer-dist
 
       - name: Run PHP_CodeSniffer
+        working-directory: ./laravel
         run: ./vendor/bin/phpcs --standard=PSR12 app
 
   lint-phpmd:
@@ -39,10 +41,12 @@ jobs:
           php-version: "8.3"
 
       - name: Install dependencies
+        working-directory: ./laravel
         run: composer install --no-progress --prefer-dist
 
       - name: Run PHPMD
-        run: ./vendor/bin/phpmd app text phpmd.xml
+        working-directory: ./laravel
+        run: ./vendor/bin/phpmd app text ../.phpmd.xml
 
   deploy:
     runs-on: ubuntu-latest
