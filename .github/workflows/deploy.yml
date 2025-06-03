@@ -61,9 +61,15 @@ jobs:
       - name: Copy PHPMD config
         run: cp $GITHUB_WORKSPACE/.phpmd.xml ./laravel/.phpmd.xml
 
+      - name: Debug path
+        run: |
+          echo "Workspace: $GITHUB_WORKSPACE"
+          ls -al $GITHUB_WORKSPACE
+          ls -al $GITHUB_WORKSPACE/laravel
+
       - name: Run PHPMD
         working-directory: ./laravel
-        run: ./vendor/bin/phpmd app text .phpmd.xml
+        run: ./vendor/bin/phpmd app text $GITHUB_WORKSPACE/.phpmd.xml
 
   deploy:
     runs-on: ubuntu-latest
