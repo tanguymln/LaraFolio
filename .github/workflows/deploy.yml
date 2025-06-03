@@ -59,12 +59,11 @@ jobs:
         run: composer require --dev phpmd/phpmd --no-interaction --no-progress
 
       - name: Debug PHPMD config file
-        working-directory: ./laravel
-        run: cat ../.phpmd.xml
+        run: cat $GITHUB_WORKSPACE/.phpmd.xml
 
       - name: Run PHPMD
         working-directory: ./laravel
-        run: ./vendor/bin/phpmd app text ../.phpmd.xml
+        run: ./vendor/bin/phpmd app text $GITHUB_WORKSPACE/.phpmd.xml
 
   deploy:
     runs-on: ubuntu-latest
